@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f2e8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#161821" media="(prefers-color-scheme: dark)">
+    <title>Humanidades Quiz</title>
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Repaso activo</p>
+          <h1>Humanidades Quiz</h1>
+        </div>
+        <div class="top-actions" aria-label="Acciones de progreso">
+          <button class="icon-button" id="exportBtn" type="button" title="Exportar progreso" aria-label="Exportar progreso">
+            <span aria-hidden="true">⬇</span>
+          </button>
+          <button class="icon-button" id="importBtn" type="button" title="Importar progreso" aria-label="Importar progreso">
+            <span aria-hidden="true">⬆</span>
+          </button>
+          <button class="icon-button danger" id="resetBtn" type="button" title="Reiniciar progreso" aria-label="Reiniciar progreso">
+            <span aria-hidden="true">↺</span>
+          </button>
+          <input class="file-input" id="importInput" type="file" accept="application/json,.json">
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="panel controls-panel" aria-label="Controles del quiz">
+          <section>
+            <h2>Modo</h2>
+            <div class="segmented" role="radiogroup" aria-label="Modo de juego">
+              <label>
+                <input type="radio" name="mode" value="random" checked>
+                <span>Aleatorio</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="topic">
+                <span>Por tema</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="failed">
+                <span>Falladas</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="exam">
+                <span>Examen</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="images">
+                <span>Imagenes</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="topic-section" id="topicSection">
+            <label class="field-label" for="topicSelect">Tema</label>
+            <select id="topicSelect"></select>
+          </section>
+
+          <section class="exam-section" id="examSection" hidden>
+            <div class="exam-meter">
+              <span>Examen</span>
+              <strong id="examCounter">0/30</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span id="examProgress"></span>
+            </div>
+          </section>
+
+          <section>
+            <h2>Estadísticas</h2>
+            <div class="stat-grid">
+              <div class="stat">
+                <span>Aciertos</span>
+                <strong id="totalCorrect">0</strong>
+              </div>
+              <div class="stat">
+                <span>Fallos</span>
+                <strong id="totalWrong">0</strong>
+              </div>
+              <div class="stat">
+                <span>Acierto</span>
+                <strong id="accuracy">0%</strong>
+              </div>
+              <div class="stat">
+                <span>Más débil</span>
+                <strong id="weakTopic">-</strong>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Diagnostico</h2>
+            <div class="stat-grid">
+              <div class="stat">
+                <span>Visuales reales</span>
+                <strong id="realVisualCount">0</strong>
+              </div>
+              <div class="stat">
+                <span>Demos excluidas</span>
+                <strong id="demoVisualExcluded">0</strong>
+              </div>
+              <div class="stat">
+                <span>Sin metadatos</span>
+                <strong id="metadataVisualExcluded">0</strong>
+              </div>
+              <div class="stat">
+                <span>Extraidas</span>
+                <strong id="extractedImageCount">0</strong>
+              </div>
+            </div>
+            <p class="version-label" id="appVersion">-</p>
+          </section>
+        </aside>
+
+        <section class="quiz-column">
+          <article class="card quiz-card" aria-live="polite">
+            <div class="question-meta">
+              <span id="questionTopic">Tema</span>
+              <span id="questionType">Pregunta</span>
+            </div>
+            <img class="question-image" id="questionImage" alt="" hidden>
+            <h2 id="questionText">Cargando pregunta...</h2>
+            <div class="answers" id="answers"></div>
+            <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+            <div class="quiz-actions">
+              <button class="primary" id="nextBtn" type="button">Siguiente pregunta</button>
+            </div>
+          </article>
+
+          <section class="card detail-card">
+            <div class="section-heading">
+              <h2>Preguntas más falladas</h2>
+              <span id="questionCount">0 preguntas</span>
+            </div>
+            <ol class="miss-list" id="mostMissedList"></ol>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="extracted_artworks.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
